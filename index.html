@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Chúc Mừng 20/10 Dì Yêu ❤️</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --pink: #ff6fae;
+            --rose: #ff3d84;
+            --gold: #ffd9a8;
+            --serif: "Playfair Display", Georgia, serif;
+            --script: "Dancing Script", cursive;
+            --sans: "Quicksand", sans-serif;
+        }
+
+        * {
+            cursor: none !important;
+        }
+
+        body {
+            font-family: var(--sans);
+            background: radial-gradient(circle at 50% 30%, #4a1240, #2a0a24 70%);
+            color: #fff1f6;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        /* Glowing Orbs */
+        .glow {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.35;
+            pointer-events: none;
+        }
+        .g1 { width: 50vmax; height: 50vmax; background: #ff2d8a; left: -15vmax; top: -10vmax; }
+        .g2 { width: 40vmax; height: 40vmax; background: #8a3dff; right: -12vmax; bottom: -10vmax; }
+
+        /* Star Twinkle */
+        .star {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: #fff;
+            animation: tw 3s infinite alternate;
+            pointer-events: none;
+        }
+        @keyframes tw {
+            from { opacity: 0.1; }
+            to { opacity: 0.9; box-shadow: 0 0 8px #fff; }
+        }
+
+        /* STAGE 1: Mở đầu mới lạ - Bông Hồng & Nút Mở Thiệp */
+        #gift-stage {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem;
+            transition: opacity 1s, transform 1s;
+            z-index: 10;
+            padding: 1rem;
+        }
+        #gift-stage.hide {
+            opacity: 0;
+            transform: scale(0.92);
+            pointer-events: none;
+        }
+
+        .rose-icon {
+            font-size: 90px;
+            animation: floatRose 2.5s ease-in-out infinite alternate;
+            filter: drop-shadow(0 0 25px rgba(255, 105, 180, 0.7));
+        }
+        @keyframes floatRose {
+            0% { transform: translateY(0) rotate(-5deg); }
+            100% { transform: translateY(-12px) rotate(5deg); }
+        }
+
+        #gift-stage h2 {
+            font-family: var(--serif);
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            color: #fff;
+            text-align: center;
+            text-shadow: 0 0 20px var(--rose);
+        }
+
+        .open-btn {
+            background: linear-gradient(135deg, #ff3d84, #ff6fae);
+            color: #fff;
+            font-family: var(--sans);
+            font-weight: 700;
+            padding: 0.8rem 2.2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 30px rgba(255, 61, 132, 0.5);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+        }
+        .open-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 61, 132, 0.8);
+        }
+
+        /* STAGE 2: Glassmorphism Card Style */
+        #card {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            z-index: 20;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.2s;
+            overflow-y: auto;
+        }
+        #card.show { opacity: 1; pointer-events: auto; }
+
+        .box {
+            position: relative;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            padding: 2.2rem 1.4rem;
+            border-radius: 28px;
+            background: linear-gradient(160deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 182, 213, 0.4);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            box-shadow: 0 25px 90px rgba(255, 61, 132, 0.35), inset 0 0 40px rgba(255, 150, 200, 0.08);
+            transform: scale(0.85) translateY(30px);
+            transition: transform 1.2s cubic-bezier(0.2, 1.3, 0.3, 1);
+            margin: auto;
+        }
+        #card.show .box { transform: none; }
+
+        .t2 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 8vw, 2.7rem);
+            background: linear-gradient(90deg, #ff9ec8, #fff, #ffd9a8, #ff6fae, #ff9ec8);
+            background-size: 250% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: sh 5s linear infinite;
+        }
+        @keyframes sh { to { background-position: -250% 0; } }
+
+        /* Đoạn văn chúc mừng thay thế 4 ô */
+        .wishes-paragraph {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 182, 213, 0.25);
+            border-radius: 18px;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #ffeef4;
+            text-align: justify;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s cubic-bezier(0.2, 1.4, 0.3, 1);
+        }
+        .wishes-paragraph.on {
+            opacity: 1;
+            transform: none;
+        }
+
+        .quote { font-family: var(--script); font-size: 1.2rem; color: var(--gold); opacity: 0; transition: opacity 1.2s; }
+        .sign { font-family: var(--script); font-size: 1.3rem; color: var(--pink); opacity: 0; transition: opacity 1.2s; margin-top: 0.4rem; }
+        .on2 { opacity: 1; }
+
+        /* Floating Hearts Animations */
+        .heart {
+            position: fixed;
+            bottom: -50px;
+            z-index: 1;
+            pointer-events: none;
+            animation: up linear forwards;
+            filter: drop-shadow(0 0 8px rgba(255, 61, 132, 0.7));
+        }
+        @keyframes up {
+            to { transform: translate(var(--dx), -115vh) rotate(var(--rot)); opacity: 0; }
+        }
+
+        .burst {
+            position: fixed;
+            z-index: 99;
+            pointer-events: none;
+            animation: bst 0.9s ease-out forwards;
+        }
+        @keyframes bst {
+            to { transform: translate(var(--bx), var(--by)) scale(0.3); opacity: 0; }
+        }
+
+        /* Custom Heart Cursor & Trail */
+        #cur {
+            position: fixed; left: 0; top: 0; z-index: 999; pointer-events: none;
+            font-size: 26px; color: #ff3d84; text-shadow: 0 0 12px #ff3d84, 0 0 28px #ff6fae;
+            opacity: 0; transition: opacity 0.3s;
+        }
+        #cur span { display: inline-block; animation: beat 1.2s infinite; }
+        @keyframes beat { 15% { transform: scale(1.25); } 30% { transform: scale(1); } 45% { transform: scale(1.18); } }
+
+        .trail {
+            position: fixed; z-index: 998; pointer-events: none; color: #ff6fae;
+            transform: translate(-50%, -50%); animation: tr 1.1s ease-out forwards;
+            text-shadow: 0 0 8px rgba(255, 61, 132, 0.8);
+        }
+        @keyframes tr {
+            to { transform: translate(calc(-50% + var(--tx)), -90px) scale(0.4); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Glowing Backgrounds -->
+    <div class="glow g1"></div>
+    <div class="glow g2"></div>
+
+    <!-- Music Control Floating Button -->
+    <button id="music-toggle" onclick="toggleMusic()" class="fixed top-5 right-5 z-50 bg-white/20 backdrop-blur-md p-3.5 rounded-full text-pink-300 shadow-lg hover:bg-white/45 transition duration-300 flex items-center justify-center w-12 h-12">
+        <i id="music-icon" class="fas fa-music text-xl"></i>
+    </button>
+
+    <!-- STAGE 1: Mở Đầu Mới Lạ (Bông Hồng & Nút Bấm) -->
+    <div id="gift-stage">
+        <h2>CHÚC MỪNG 20/10 DÌ YÊU</h2>
+        <div class="rose-icon">🌹</div>
+        <p class="font-serif italic text-amber-200 text-sm">Một món quà nhỏ đong đầy tình cảm gửi đến Dì</p>
+        <button class="open-btn mt-2" onclick="openCard()">Mở Thiệp Ngay 💌✨</button>
+    </div>
+
+    <!-- STAGE 2: Thiệp Chúc Mừng Chi Tiết -->
+    <div id="card">
+        <div class="box">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest text-purple-950 bg-gradient-to-r from-amber-200 to-pink-300 shadow-md">
+                20 · 10 &nbsp;Ngày Phụ Nữ Việt Nam
+            </span>
+            <div class="text-4xl my-3 animate-bounce">🌷✨</div>
+            <p class="font-serif italic text-amber-200 text-sm">Gửi người Dì dịu dàng và thương quý</p>
+            <h1 class="t2 font-bold my-1" id="name">DÌ YÊU</h1>
+            <div class="flex justify-center items-center gap-2 text-pink-400 my-2">
+                <span class="h-[1px] w-12 bg-gradient-to-r from-transparent to-pink-400"></span>
+                ❀ ❤ ❀
+                <span class="h-[1px] w-12 bg-gradient-to-l from-transparent to-pink-400"></span>
+            </div>
+
+            <!-- Dòng chữ gõ mở đầu -->
+            <div id="msg" class="text-sm font-light leading-relaxed my-2 text-pink-100 min-h-[4.5em]"></div>
+
+            <!-- Đoạn văn chúc mừng thay thế 4 ô cũ -->
+            <div id="wishes-box" class="wishes-paragraph">
+                Nhân dịp 20/10, con chúc Dì yêu luôn giữ mãi nét rạng rỡ, trẻ trung và tràn đầy năng lượng tích cực mỗi ngày. Mong rằng công việc luôn hanh thông, tài lộc dồi dào, cuộc sống bình yên và ngập tràn tiếng cười. Dì mãi là người phụ nữ hạnh phúc và được yêu thương nhiều nhất nhà mình nhé! 💐💖
+            </div>
+
+            <div class="quote mt-3" id="quote"></div>
+            <div class="sign mt-2" id="sign"></div>
+        </div>
+    </div>
+
+    <!-- Background Audio -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://assets.mixkit.co/music/preview/mixkit-romantic-sunset-688.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const CFG = {
+            name: "Dì Yêu",
+            intro: "Nhân ngày 20/10, con - Bảo Trân, xin gửi đến Dì lời chúc chân thành và sâu sắc nhất. Cảm ơn Dì vì luôn yêu thương và quan tâm đến con! 👇",
+            quote: "Chúc cho Dì của con mọi dự định đều thành hiện thực và luôn nở nụ cười rạng ngời trên môi.",
+            sign: "— Cháu yêu của Dì: BẢO TRÂN 💌"
+        };
+
+        const rnd = (a) => Array.isArray(a) || typeof a === "string" ? a[Math.floor(Math.random() * a.length)] : 0;
+        const R = (a, b) => Math.random() * (b - a) + a;
+        const $ = (id) => document.getElementById(id);
+
+        let isPlaying = false;
+        const bgMusic = $('bg-music');
+        const musicIcon = $('music-icon');
+
+        function toggleMusic() {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicIcon.classList.remove('fa-volume-high', 'animate-spin');
+                musicIcon.classList.add('fa-music');
+            } else {
+                bgMusic.play().then(() => {
+                    musicIcon.classList.remove('fa-music');
+                    musicIcon.classList.add('fa-volume-high');
+                }).catch(e => console.log('Audio playback waiting for interaction', e));
+            }
+            isPlaying = !isPlaying;
+        }
+
+        for (let i = 0; i < 60; i++) {
+            const s = document.createElement("div");
+            s.className = "star";
+            s.style.cssText = `left:${R(0, 100)}vw;top:${R(0, 100)}vh;animation-delay:${R(0, 3)}s`;
+            document.body.appendChild(s);
+        }
+
+        $("name").textContent = CFG.name;
+        $("sign").textContent = CFG.sign;
+        $("quote").textContent = CFG.quote;
+
+        const HEARTS = ["❤", "💖", "💗", "💕", "💘", "🌸", "🌹", "✨"];
+        function heart() {
+            const h = document.createElement("div");
+            h.className = "heart";
+            h.textContent = rnd(HEARTS);
+            const d = R(5, 11);
+            h.style.cssText += `left:${R(0, 100)}vw;font-size:${R(16, 44)}px;animation-duration:${d}s;--dx:${R(-80, 80)}px;--rot:${R(-40, 40)}deg;opacity:${R(0.6, 1)}`;
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), d * 1000);
+        }
+
+        function heartStorm() {
+            for (let i = 0; i < 35; i++) setTimeout(heart, i * 60);
+        }
+
+        // Mở thiệp từ màn hình hoa hồng mới
+        function openCard() {
+            if (!isPlaying) toggleMusic();
+            
+            // Bắn pháo hoa
+            confetti({
+                particleCount: 120,
+                spread: 90,
+                origin: { y: 0.6 },
+                colors: ['#ff69b4', '#ff1493', '#ffc0cb', '#ffd700']
+            });
+
+            $("gift-stage").classList.add("hide");
+            $("card").classList.add("show");
+            
+            setInterval(heart, 300);
+            heartStorm();
+
+            // Hiệu ứng gõ chữ phần intro
+            let i = 0;
+            setTimeout(function type() {
+                $("msg").textContent = CFG.intro.slice(0, ++i);
+                if (i < CFG.intro.length) {
+                    setTimeout(type, 35);
+                } else {
+                    setTimeout(() => $("wishes-box").classList.add("on"), 300);
+                    setTimeout(() => $("quote").classList.add("on2"), 1200);
+                    setTimeout(() => $("sign").classList.add("on2"), 1800);
+                }
+            }, 800);
+        }
+
+        // Custom Mouse/Touch Cursor Heart Trail Effect
+        const cur = document.createElement("div");
+        cur.id = "cur";
+        cur.innerHTML = "<span>❤</span>";
+        document.body.appendChild(cur);
+        let lt = 0;
+
+        addEventListener("pointermove", (e) => {
+            cur.style.transform = `translate(${e.clientX}px,${e.clientY}px) translate(-50%,-50%)`;
+            cur.style.opacity = 1;
+            const n = performance.now();
+            if (n - lt < 45) return;
+            lt = n;
+            const t = document.createElement("div");
+            t.className = "trail";
+            t.textContent = rnd(["❤", "💖", "💗", "💕", "✨"]);
+            t.style.cssText += `left:${e.clientX}px;top:${e.clientY}px;font-size:${R(10, 20)}px;--tx:${R(-30, 30)}px`;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 1000);
+        });
+
+        document.addEventListener("mouseleave", () => (cur.style.opacity = 0));
+
+        // Click hoặc chạm vào bất cứ đâu trên thiệp để tạo bùng nổ hiệu ứng trái tim
+        $("card").addEventListener("click", (e) => {
+            if (e.target.tagName !== "BUTTON") {
+                for (let i = 0; i < 6; i++) {
+                    const b = document.createElement("div");
+                    b.className = "burst";
+                    b.textContent = rnd(HEARTS);
+                    b.style.cssText = `left:${e.clientX}px;top:${e.clientY}px;font-size:${18 + R(0, 10)}px;color:#ffc2dc;--bx:${R(-70, 70)}px;--by:${R(-70, 70)}px`;
+                    document.body.appendChild(b);
+                    setTimeout(() => b.remove(), 900);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
